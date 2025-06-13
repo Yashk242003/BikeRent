@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bike On Rent</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .animate-scroll {
+      animation: scroll 20s linear infinite;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+<!-- Fixed Navbar -->
+<!-- Navbar -->
+<nav class="fixed top-0 w-full z-50 bg-white shadow-md flex flex-wrap justify-between items-center px-4 py-3">
+  <!-- Logo -->
+  <h1 class="text-xl md:text-2xl font-bold text-black">RentBike</h1>
+
+  <!-- Search Bar (visible only on md and above) -->
+  <div class="relative hidden md:block md:w-1/3 mt-2 md:mt-0 md:mx-auto">
+    <input
+      type="text"
+      placeholder="Search bikes..."
+      class="w-full pr-10 pl-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-black"
+    />
+    <svg class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5 cursor-pointer"
+      xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round"
+        d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103.5 10.5a7.5 7.5 0 0013.65 6.15z" />
+    </svg>
+  </div>
+
+  <!-- Location + Profile -->
+  <div class="flex items-center gap-4 text-sm md:text-base text-gray-600 mt-2 md:mt-0">
+    <!-- Location -->
+    <div class="flex items-center gap-1">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500" fill="none" viewBox="0 0 24 24"
+        stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          d="M12 11c1.104 0 2-.896 2-2s-.896-2-2-2-2 .896-2 2 .896 2 2 2z" />
+        <path stroke-linecap="round" stroke-linejoin="round"
+          d="M12 21c-4.418 0-8-4.03-8-9 0-3.866 3.134-7 7-7s7 3.134 7 7c0 4.97-3.582 9-8 9z" />
+      </svg>
+      <span class="font-semibold">Ashoknagar</span>
+    </div>
+
+    <!-- Profile Picture -->
+    <a href="profile.html">
+      <img src="https://i.pravatar.cc/32?img=12" alt="Profile"
+        class="w-8 h-8 rounded-full border border-gray-300 cursor-pointer" />
+    </a>
+  </div>
+</nav>
+
+
+<!-- Add padding to next section to avoid being hidden behind the fixed navbar -->
+<div class="pt-5">
+  <!-- Your next section content here -->
+</div>
+
+<section 
+  class="relative bg-cover bg-center bg-no-repeat min-h-[500px] py-16 text-center px-4 flex flex-col justify-center"
+  style="background-image: url('https://dynamic-media-cdn.tripadvisor.com/media/photo-o/13/83/a4/ac/img-d43d4caa8f70bec93c23d70fb7.jpg');"
+>
+  <!-- Black overlay -->
+  <div class="absolute inset-0 bg-black opacity-60 z-0"></div>
+
+  <!-- Content -->
+  <div class="relative z-10">
+    <h2 class="text-3xl md:text-4xl font-bold mb-3 text-white drop-shadow-lg">
+      Rent a Bike Anytime, Anywhere
+    </h2>
+    <p class="text-base md:text-lg mb-6 text-white drop-shadow-md">
+      Affordable hourly & daily rentals at your fingertips
+    </p>
+
+    <!-- Search Form -->
+    <form 
+      action="bikerent.html" 
+      method="GET" 
+      class="flex flex-col md:flex-row md:justify-center md:items-center gap-4 max-w-6xl mx-auto px-4 py-4"
+      onsubmit="return validateForm()"
+    >
+      <input 
+        type="text" 
+        name="city" 
+        value="Ashoknagar" 
+        readonly 
+        class="px-4 py-2 rounded w-full md:w-[200px] text-sm md:text-base bg-gray-100 cursor-not-allowed border border-gray-300" 
+        id="cityInput"
+      />
+      <input 
+        type="date" 
+        name="start" 
+        class="px-4 py-2 rounded w-full md:w-[200px] text-sm md:text-base border border-gray-300" 
+        id="startDate"
+        required
+      />
+      <input 
+        type="date" 
+        name="end" 
+        class="px-4 py-2 rounded w-full md:w-[200px] text-sm md:text-base border border-gray-300" 
+        id="endDate"
+        required
+      />
+      <button 
+        type="submit" 
+        class="bg-black text-white px-4 py-2 rounded hover:bg-blue-700 text-sm md:text-base w-full md:w-[200px]"
+      >
+        Search
+      </button>
+    </form>
+  </div>
+</section>
+
+<!-- Optional JavaScript Validation -->
+<script>
+  function validateForm() {
+    const start = document.getElementById('startDate').value;
+    const end = document.getElementById('endDate').value;
+
+    if (!start || !end) {
+      alert("Please select both start and end dates.");
+      return false;
+    }
+
+    if (new Date(start) > new Date(end)) {
+      alert("Start date cannot be after end date.");
+      return false;
+    }
+
+    return true;
+  }
+</script>
+
+<section class="pt-16 py-10 px-4 max-w-6xl mx-auto">
+  <h3 class="text-3xl font-bold text-center mb-10 text-gray-800">Popular Bikes</h3>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+    <!-- Bike Card -->
+    <div class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden group">
+      <img src="https://imgd.aeplcdn.com/1056x594/n/md75dfb_1813305.jpg" alt="Royal Enfield" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+      <div class="p-5">
+        <h4 class="text-xl font-semibold text-gray-800 mb-2">Royal Enfield Classic 350</h4>
+        <span class="inline-block bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full mb-4">₹500/day</span>
+        <button class="w-full bg-gray-900 text-white py-2 rounded-lg hover:bg-black transition-colors duration-200">Book Now</button>
+      </div>
+    </div>
+
+    <!-- Bike Card -->
+    <div class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden group">
+      <img src="https://imgd.aeplcdn.com/664x374/n/cw/ec/1/versions/--connected-obd-2b1737697110094.jpg" alt="Honda Activa" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+      <div class="p-5">
+        <h4 class="text-xl font-semibold text-gray-800 mb-2">Honda Activa 6G</h4>
+        <span class="inline-block bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full mb-4">₹300/day</span>
+        <button class="w-full bg-gray-900 text-white py-2 rounded-lg hover:bg-black transition-colors duration-200">Book Now</button>
+      </div>
+    </div>
+
+    <!-- Bike Card -->
+    <div class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden group">
+      <img src="https://imgd.aeplcdn.com/664x374/n/bw/models/colors/yamaha-select-model-matte-cyan-1704801979162.png" alt="Yamaha FZ-S" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+      <div class="p-5">
+        <h4 class="text-xl font-semibold text-gray-800 mb-2">Yamaha FZ-S V3</h4>
+        <span class="inline-block bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full mb-4">₹400/day</span>
+        <button class="w-full bg-gray-900 text-white py-2 rounded-lg hover:bg-black transition-colors duration-200">Book Now</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="pt-16 py-10 bg-white max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <h3 class="text-3xl font-bold text-center mb-10 text-gray-800">Trusted Brands</h3>
+
+  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5 place-items-center">
+    
+    <!-- Yamaha -->
+    <div class="bg-gray-100 p-4 rounded-xl shadow flex items-center justify-center w-full h-24 sm:h-28">
+      <img src="https://www.logo.wine/a/logo/Yamaha_Motor_Company/Yamaha_Motor_Company-Logo.wine.svg" alt="Yamaha" class="h-full object-contain" />
+    </div>
+
+    <!-- Royal Enfield -->
+    <div class="bg-gray-100 p-4 rounded-xl shadow flex items-center justify-center w-full h-24 sm:h-28">
+      <img src="https://images.seeklogo.com/logo-png/33/1/royal-enfield-logo-png_seeklogo-335155.png" alt="Royal Enfield" class="h-full object-contain" />
+    </div>
+
+    <!-- Hero -->
+    <div class="bg-gray-100 p-4 rounded-xl shadow flex items-center justify-center w-full h-24 sm:h-28">
+      <img src="https://www.logo.wine/a/logo/Hero_MotoCorp/Hero_MotoCorp-Logo.wine.svg" alt="Hero" class="h-full object-contain" />
+    </div>
+
+    <!-- TVS -->
+    <div class="bg-gray-100 p-4 rounded-xl shadow flex items-center justify-center w-full h-24 sm:h-28">
+      <img src="https://www.logo.wine/a/logo/TVS_Motor_Company/TVS_Motor_Company-Logo.wine.svg" alt="TVS" class="h-full object-contain" />
+    </div>
+
+    <!-- Bajaj -->
+    <div class="bg-gray-100 p-4 rounded-xl shadow flex items-center justify-center w-full h-24 sm:h-28">
+      <img src="https://logowik.com/content/uploads/images/bajaj-motorcycle3842.jpg" alt="Bajaj" class="h-full object-contain" />
+    </div>
+
+    <!-- KTM -->
+    <div class="bg-gray-100 p-4 rounded-xl shadow flex items-center justify-center w-full h-24 sm:h-28">
+      <img src="https://www.logo.wine/a/logo/KTM/KTM-Logo.wine.svg" alt="KTM" class="h-full object-contain" />
+    </div>
+
+  </div>
+</section>
+
+
+
+
+
+  <!-- Blog Section -->
+  <section class="pt-16 py-12 px-4 max-w-7xl mx-auto">
+    <h2 class="text-3xl font-bold mb-8 text-center">Latest from Our Blog</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="bg-white shadow-md rounded-lg overflow-hidden">
+        <img src="https://bikewalebhaiya.com/bike/assets/blog/1471150093651730873463.jpg" alt="Blog 1" class="w-full h-48 object-cover">
+        <div class="p-5">
+          <h3 class="text-xl font-semibold mb-2">Top 5 Scenic Bike Routes in India</h3>
+          <p class="text-gray-600 text-sm mb-4">Discover the most beautiful routes to explore on two wheels.</p>
+          <a href="#" class="text-blue-600 font-medium hover:underline text-sm">Read More →</a>
+        </div>
+      </div>
+      <div class="bg-white shadow-md rounded-lg overflow-hidden">
+        <img src="https://futuretransport-news.com/wp-content/uploads/sites/3/2022/06/Voi-2048x1365.jpg" alt="Blog 2" class="w-full h-48 object-cover">
+        <div class="p-5">
+          <h3 class="text-xl font-semibold mb-2">Why Renting a Scooter is Great for City Travel</h3>
+          <p class="text-gray-600 text-sm mb-4">Scooters are budget-friendly and perfect for urban commutes.</p>
+          <a href="#" class="text-blue-600 font-medium hover:underline text-sm">Read More →</a>
+        </div>
+      </div>
+      <div class="bg-white shadow-md rounded-lg overflow-hidden">
+        <img src="https://cdn.buttercms.com/GvwxMI8UQi2D6A2UxlFk" alt="Blog 3" class="w-full h-48 object-cover">
+        <div class="p-5">
+          <h3 class="text-xl font-semibold mb-2">Essential Safety Tips for First-Time Riders</h3>
+          <p class="text-gray-600 text-sm mb-4">New to bikes? Stay safe on the road with these tips.</p>
+          <a href="#" class="text-blue-600 font-medium hover:underline text-sm">Read More →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="pt-16 bg-white py-16 px-4">
+  <div class="max-w-7xl mx-auto text-center">
+    <h2 class="text-3xl font-bold text-black mb-4">Nearby Tourist Places</h2>
+    <p class="text-gray-600 mb-10">Discover beautiful destinations you can explore with your rental bike.</p>
+
+    <div class="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+
+      <!-- Place 1 -->
+      <div class="group bg-gray-100 rounded-lg shadow hover:shadow-lg transition overflow-hidden relative">
+        <div class="relative overflow-hidden">
+          <img src="https://s3.us-west-1.amazonaws.com/goheritagerun.com/wp-content/uploads/2020/04/06144637/Chanderi-Fort-Palace-800x445.jpg" alt="Temple" class="w-full h-48 object-cover transform transition-transform group-hover:scale-105">
+          <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+            <span class="bg-white text-gray-800 text-sm font-semibold px-4 py-2 rounded-full shadow">📍 45 km away</span>
+          </div>
+        </div>
+        <div class="p-4">
+          <h3 class="text-lg font-semibold text-black">Chanderi</h3>
+          <p class="text-sm text-gray-600 mt-2">A peaceful spiritual spot located just 10 km from the city center.</p>
+        </div>
+      </div>
+
+      <!-- Place 2 -->
+      <div class="group bg-gray-100 rounded-lg shadow hover:shadow-lg transition overflow-hidden relative">
+        <div class="relative overflow-hidden">
+          <img src="https://files.yappe.in/place/full/amahi-lake-118492.webp" alt="Lake" class="w-full h-48 object-cover transform transition-transform group-hover:scale-105">
+          <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+            <span class="bg-white text-gray-800 text-sm font-semibold px-4 py-2 rounded-full shadow">📍 7 km away</span>
+          </div>
+        </div>
+        <div class="p-4">
+          <h3 class="text-lg font-semibold text-black">Amahi lake</h3>
+          <p class="text-sm text-gray-600 mt-2">Perfect for a relaxing bike ride and picnic by the lakeside.</p>
+        </div>
+      </div>
+
+      <!-- Place 3 -->
+      <div class="group bg-gray-100 rounded-lg shadow hover:shadow-lg transition overflow-hidden relative">
+        <div class="relative overflow-hidden">
+          <img src="https://sasappmedia.atlotusfeet.com/appstatic/img/webapp/dark/Shri_AnandpurDham_Temples.jpg" alt="Fort" class="w-full h-48 object-cover transform transition-transform group-hover:scale-105">
+          <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+            <span class="bg-white text-gray-800 text-sm font-semibold px-4 py-2 rounded-full shadow">📍 30 km away</span>
+          </div>
+        </div>
+        <div class="p-4">
+          <h3 class="text-lg font-semibold text-black">Anandpur Dham</h3>
+          <p class="text-sm text-gray-600 mt-2">Explore rich history and stunning views from this ancient fort.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- Customer Reviews -->
+<section class="py-12 bg-gray-100">
+  <div class="max-w-6xl mx-auto px-4 relative">
+
+    <h2 class="text-3xl font-bold text-center mb-10">What Our Customers Say</h2>
+
+    <!-- Scroll container -->
+    <div
+      id="reviewsContainer"
+      class="md:grid md:grid-cols-3 md:gap-8 flex overflow-x-auto snap-x snap-mandatory scrollbar-hide"
+      style="scroll-behavior: smooth;"
+    >
+      <!-- Review cards -->
+      <div
+        class="bg-white p-6 rounded-lg shadow-md flex-shrink-0 snap-start w-full md:w-auto max-w-md mx-auto"
+      >
+        <div class="flex items-center mb-4">
+          <img
+            src="https://i.pravatar.cc/100?img=32"
+            alt="User"
+            class="w-12 h-12 rounded-full mr-4"
+          />
+          <div>
+            <h4 class="text-lg font-semibold">Aman Verma</h4>
+            <p class="text-sm text-gray-500">Delhi, India</p>
+          </div>
+        </div>
+        <p class="text-gray-700 mb-4">
+          “The booking process was smooth and the bike was in excellent condition.
+          Great value for money!”
+        </p>
+        <div class="flex text-yellow-400">★★★★★</div>
+      </div>
+
+      <div
+        class="bg-white p-6 rounded-lg shadow-md flex-shrink-0 snap-start w-full md:w-auto max-w-md mx-auto"
+      >
+        <div class="flex items-center mb-4">
+          <img
+            src="https://i.pravatar.cc/100?img=12"
+            alt="User"
+            class="w-12 h-12 rounded-full mr-4"
+          />
+          <div>
+            <h4 class="text-lg font-semibold">Sneha Shah</h4>
+            <p class="text-sm text-gray-500">Mumbai, India</p>
+          </div>
+        </div>
+        <p class="text-gray-700 mb-4">
+          “Loved the service! Rented a scooter for 3 days and had no issues at all.
+          Highly recommend.”
+        </p>
+        <div class="flex text-yellow-400">★★★★☆</div>
+      </div>
+
+      <div
+        class="bg-white p-6 rounded-lg shadow-md flex-shrink-0 snap-start w-full md:w-auto max-w-md mx-auto"
+      >
+        <div class="flex items-center mb-4">
+          <img
+            src="https://i.pravatar.cc/100?img=45"
+            alt="User"
+            class="w-12 h-12 rounded-full mr-4"
+          />
+          <div>
+            <h4 class="text-lg font-semibold">Rohit Mehta</h4>
+            <p class="text-sm text-gray-500">Bangalore, India</p>
+          </div>
+        </div>
+        <p class="text-gray-700 mb-4">
+          “Great support team and fast pickup process. Will definitely rent again on
+          my next trip.”
+        </p>
+        <div class="flex text-yellow-400">★★★★★</div>
+      </div>
+    </div>
+
+    <!-- Buttons below, visible on mobile -->
+    <div class="flex justify-center space-x-6 mt-6 md:hidden">
+      <button
+        id="prevBtn"
+        class="bg-white p-3 rounded-full shadow hover:bg-gray-200 transition"
+        aria-label="Previous reviews"
+      >
+        &#8592;
+      </button>
+      <button
+        id="nextBtn"
+        class="bg-white p-3 rounded-full shadow hover:bg-gray-200 transition"
+        aria-label="Next reviews"
+      >
+        &#8594;
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  /* Hide scrollbar */
+  .scrollbar-hide {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+</style>
+
+<script>
+  const container = document.getElementById('reviewsContainer');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+
+  function getCardWidth() {
+    const card = container.querySelector('.snap-start');
+    return card ? card.offsetWidth + parseInt(getComputedStyle(card).marginRight || 0) : 0;
+  }
+
+  prevBtn.addEventListener('click', () => {
+    const cardWidth = getCardWidth();
+    container.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+  });
+
+  nextBtn.addEventListener('click', () => {
+    const cardWidth = getCardWidth();
+    container.scrollBy({ left: cardWidth, behavior: 'smooth' });
+  });
+</script>
+
+<section class="bg-white w-full py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-4xl mx-auto">
+    <h2 class="text-3xl font-bold text-center mb-8">Frequently Asked Questions</h2>
+
+    <div class="space-y-4">
+      <!-- FAQ Item -->
+      <div class="border rounded-lg overflow-hidden">
+        <button onclick="toggleFaq(this)" class="w-full text-left px-4 py-3 bg-gray-100 font-medium text-lg flex justify-between items-center">
+          What documents are required for bike rental?
+          <svg class="w-5 h-5 transition-transform transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        <div class="px-4 py-3 hidden text-gray-700">
+          You need a valid driving license, Aadhar card or any government-issued ID proof.
+        </div>
+      </div>
+
+      <!-- More FAQs -->
+      <div class="border rounded-lg overflow-hidden">
+        <button onclick="toggleFaq(this)" class="w-full text-left px-4 py-3 bg-gray-100 font-medium text-lg flex justify-between items-center">
+          Is fuel included in the rental price?
+          <svg class="w-5 h-5 transition-transform transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        <div class="px-4 py-3 hidden text-gray-700">
+          No, fuel is not included. The vehicle is provided with minimal fuel and must be returned the same way.
+        </div>
+      </div>
+
+      <div class="border rounded-lg overflow-hidden">
+        <button onclick="toggleFaq(this)" class="w-full text-left px-4 py-3 bg-gray-100 font-medium text-lg flex justify-between items-center">
+          Can I cancel my booking?
+          <svg class="w-5 h-5 transition-transform transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        <div class="px-4 py-3 hidden text-gray-700">
+          Yes, cancellations are allowed up to 24 hours before pickup. Refund policies may apply.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<script>
+  function toggleFaq(button) {
+    const content = button.nextElementSibling;
+    const icon = button.querySelector("svg");
+    content.classList.toggle("hidden");
+    icon.classList.toggle("rotate-180");
+  }
+</script>
+
+
+<footer class="bg-gray-900 text-white pt-12 pb-8 px-4">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
+
+    <!-- Quick Links -->
+    <div>
+      <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+      <ul class="space-y-3 text-sm text-gray-300">
+        <li><a href="#" class="hover:text-white transition">Home</a></li>
+        <li><a href="about.html" class="hover:text-white transition">About Us</a></li>
+        <li><a href="contact.html" class="hover:text-white transition">Contact</a></li>
+        <li><a href="track.html" class="hover:text-white transition">Track Booking</a></li>
+      </ul>
+    </div>
+
+    <!-- Customer Care -->
+    <div>
+      <h4 class="text-lg font-semibold mb-4">Customer Care</h4>
+      <ul class="space-y-3 text-sm text-gray-300">
+        <li><a href="tel:+919999999999" class="hover:text-white transition">📞 +91 99999 99999</a></li>
+        <li><a href="mailto:support@rentbike.com" class="hover:text-white transition">✉️ support@rentbike.com</a></li>
+        <li><a href="#" class="hover:text-white transition">Help Center</a></li>
+      </ul>
+    </div>
+
+    <!-- Social Media -->
+    <div>
+      <h4 class="text-lg font-semibold mb-4">Follow Us</h4>
+      <div class="flex gap-5 mt-2 text-gray-400">
+        <a href="#" class="hover:text-white transition" aria-label="Facebook">
+          <i class="fab fa-facebook-f text-xl"></i>
+        </a>
+        <a href="#" class="hover:text-white transition" aria-label="Instagram">
+          <i class="fab fa-instagram text-xl"></i>
+        </a>
+        <a href="#" class="hover:text-white transition" aria-label="Twitter">
+          <i class="fab fa-twitter text-xl"></i>
+        </a>
+        <a href="#" class="hover:text-white transition" aria-label="LinkedIn">
+          <i class="fab fa-linkedin-in text-xl"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div>
+      <h4 class="text-lg font-semibold mb-4">Partner with Us</h4>
+      <p class="text-sm text-gray-300 mb-3">Grow your income by listing your bike.</p>
+      <a href="add.html" class="inline-block bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-full text-sm font-medium transition">Add Your Bike</a>
+      <div class="mt-4">
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Bottom -->
+  <div class="mt-10 border-t border-gray-700 pt-5 text-center text-sm text-gray-400">
+    &copy; 2025 <span class="text-white font-semibold">RentBike</span>. All rights reserved.
+  </div>
+</footer>
+
+
+
+  
+
+</body>
+</html>
