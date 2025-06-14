@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us - RentBike</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+<!-- Fixed Navbar -->
+<nav class="fixed top-0 w-full z-50 bg-white shadow-md flex justify-between items-center px-4 py-3">
+  <h1 class="text-xl md:text-2xl font-bold text-black">RentBike</h1>
+  <div id="cityDisplay" class="flex items-center gap-2 text-sm md:text-base text-gray-600">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 11c1.104 0 2-.896 2-2s-.896-2-2-2-2 .896-2 2 .896 2 2 2z" />
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 21c-4.418 0-8-4.03-8-9 0-3.866 3.134-7 7-7s7 3.134 7 7c0 4.97-3.582 9-8 9z" />
+    </svg>
+    <span id="cityName" class="font-semibold">Ashoknagar</span>
+  </div>
+</nav>
+
+<!-- Add padding to next section to avoid being hidden behind the fixed navbar -->
+<div class="pt-10">
+  <!-- Your next section content here -->
+</div>
+
+
+<!-- Hero Section -->
+<section class="relative bg-blue-100">
+  <img src="https://cdn.prod.website-files.com/64022de562115a8189fe542a/6425a5b698c539cbabed6a60_Top-Ideas-To-Help-Improve-Your-Customer-Service.jpg" alt="Bike Ride" class="w-full h-72 object-cover">
+  <div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-center items-center text-center text-white">
+    <h2 class="text-4xl md:text-5xl font-bold mb-2">Get in Touch with RentBike</h2>
+    <p class="text-lg md:text-xl">We’re just a message away – ready to help you ride!</p>
+  </div>
+</section>
+
+  <!-- Contact Section -->
+  <section class="py-20 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold text-black mb-4">Contact Us</h2>
+        <p class="text-gray-600 text-lg">We’re here to help you 24/7. Reach out via email or live chat.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-10">
+        
+        <!-- Contact Form -->
+        <form 
+          action="mailto:yourmail@example.com" 
+          method="POST" 
+          enctype="text/plain"
+          class="bg-white p-6 rounded-lg shadow-md space-y-4"
+        >
+          <div>
+            <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+            <input type="text" name="name" id="name" required
+              class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+          </div>
+          <div>
+            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+            <input type="email" name="email" id="email" required
+              class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+          </div>
+          <div>
+            <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
+            <textarea name="message" id="message" rows="5" required
+              class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"></textarea>
+          </div>
+          <button type="submit"
+            class="bg-gray-800 text-white px-6 py-2 rounded hover:bg-black transition duration-200">
+            Send Message
+          </button>
+        </form>
+
+        <!-- Chat Options -->
+        <div class="bg-white p-6 rounded-lg shadow-md space-y-6">
+          <h3 class="text-xl font-semibold text-blue-500">Live Chat Support</h3>
+          <p class="text-gray-700">Click below to chat with us live:</p>
+
+          <!-- WhatsApp Chat Button -->
+          <a href="https://wa.me/919999999999" target="_blank"
+            class="inline-flex items-center gap-2 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-200">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 32 32">
+              <path d="M19.11 17.725c-.293-.146-1.733-.857-2.002-.954-.267-.097-.462-.146-.656.146-.195.293-.754.954-.924 1.148-.171.195-.341.219-.634.073-.293-.146-1.237-.456-2.36-1.454-.873-.779-1.461-1.743-1.634-2.036-.171-.293-.019-.451.127-.596.131-.13.293-.341.439-.512.146-.171.195-.293.293-.488.098-.195.049-.366-.024-.512-.073-.146-.658-1.587-.901-2.183-.237-.571-.478-.494-.656-.503l-.561-.01c-.195 0-.512.073-.78.366s-1.025 1-1.025 2.439 1.05 2.828 1.195 3.025c.146.195 2.065 3.153 5.004 4.421.7.3 1.244.479 1.67.612.701.223 1.34.192 1.844.117.562-.084 1.733-.708 1.98-1.393.244-.684.244-1.27.171-1.393-.073-.122-.268-.195-.561-.341z"/>
+            </svg>
+            Chat on WhatsApp
+          </a>
+
+          <!-- Optional: Add third-party live chat (e.g. Tawk.to, Crisp) -->
+          <p class="text-sm text-gray-500 mt-4">
+            Or use our integrated live chat below.
+          </p>
+
+          <!-- Embedded Chat Script (Example: Tawk.to) -->
+          <!-- Replace with your own widget script -->
+          <script type="text/javascript">
+          var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+          (function () {
+            var s1 = document.createElement("script"),
+              s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/your-tawk-id/1yourcode';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+          })();
+          </script>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+/>
+
+<footer class="bg-gray-900 text-white pt-14 pb-10 px-6 sm:px-10">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
+
+    <!-- Quick Links -->
+    <div>
+      <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+      <ul class="space-y-2 text-sm text-gray-400">
+        <li><a href="index.html" class="hover:text-white transition">Home</a></li>
+        <li><a href="about.html" class="hover:text-white transition">About Us</a></li>
+        <li><a href="contact.html" class="hover:text-white transition">Contact</a></li>
+        <li><a href="track.html" class="hover:text-white transition">Track Booking</a></li>
+      </ul>
+    </div>
+
+    <!-- Customer Care -->
+    <div>
+      <h4 class="text-lg font-semibold mb-4">Customer Care</h4>
+      <ul class="space-y-2 text-sm text-gray-400">
+        <li>
+          <a href="tel:+919999999999" class="hover:text-white transition">📞 +91 99999 99999</a>
+        </li>
+        <li>
+          <a href="mailto:support@rentbike.com" class="hover:text-white transition">✉️ support@rentbike.com</a>
+        </li>
+        <li>
+          <a href="#" class="hover:text-white transition">Help Center</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Social Media -->
+    <div>
+      <h4 class="text-lg font-semibold mb-4">Follow Us</h4>
+      <div class="flex items-center gap-5 text-gray-400 mt-2">
+        <a href="#" class="hover:text-blue-600 transition" title="Facebook" aria-label="Facebook">
+          <i class="fab fa-facebook-f text-xl"></i>
+        </a>
+        <a href="#" class="hover:text-pink-500 transition" title="Instagram" aria-label="Instagram">
+          <i class="fab fa-instagram text-xl"></i>
+        </a>
+        <a href="#" class="hover:text-sky-400 transition" title="Twitter" aria-label="Twitter">
+          <i class="fab fa-twitter text-xl"></i>
+        </a>
+        <a href="#" class="hover:text-blue-700 transition" title="LinkedIn" aria-label="LinkedIn">
+          <i class="fab fa-linkedin-in text-xl"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Partner With Us -->
+    <div>
+      <h4 class="text-lg font-semibold mb-4">Partner with Us</h4>
+      <p class="text-sm text-gray-400 mb-3">Grow your income by listing your bike.</p>
+      <a href="add.html"
+         class="inline-block bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-full text-sm font-medium transition duration-300 ease-in-out">
+        Add Your Bike
+      </a>
+    </div>
+  </div>
+
+  <!-- Footer Bottom -->
+  <div class="mt-12 border-t border-gray-700 pt-6 text-center text-sm text-gray-500">
+    &copy; 2025 <span class="text-white font-semibold">RentBike</span>. All rights reserved.
+  </div>
+</footer>
+
+
+</body>
+</html>

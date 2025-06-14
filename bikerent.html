@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Available Bikes for Rent</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  
+</head>
+<body class="bg-gray-50">
+
+ <!-- Navbar -->
+<!-- Navbar -->
+<nav class="fixed top-0 w-full z-50 bg-white shadow-md flex flex-wrap justify-between items-center px-4 py-3">
+  <!-- Logo -->
+  <h1 class="text-xl md:text-2xl font-bold text-black">RentBike</h1>
+
+  <!-- Search Bar (visible only on md and above) -->
+  <div class="relative hidden md:block md:w-1/3 mt-2 md:mt-0 md:mx-auto">
+    <input
+      type="text"
+      placeholder="Search bikes..."
+      class="w-full pr-10 pl-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-black"
+    />
+    <svg class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5 cursor-pointer"
+      xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round"
+        d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103.5 10.5a7.5 7.5 0 0013.65 6.15z" />
+    </svg>
+  </div>
+
+  <!-- Location + Profile -->
+  <div class="flex items-center gap-4 text-sm md:text-base text-gray-600 mt-2 md:mt-0">
+    <!-- Location -->
+    <div class="flex items-center gap-1">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500" fill="none" viewBox="0 0 24 24"
+        stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          d="M12 11c1.104 0 2-.896 2-2s-.896-2-2-2-2 .896-2 2 .896 2 2 2z" />
+        <path stroke-linecap="round" stroke-linejoin="round"
+          d="M12 21c-4.418 0-8-4.03-8-9 0-3.866 3.134-7 7-7s7 3.134 7 7c0 4.97-3.582 9-8 9z" />
+      </svg>
+      <span class="font-semibold">Ashoknagar</span>
+    </div>
+
+    <!-- Profile Picture -->
+    <a href="profile.html">
+      <img src="https://i.pravatar.cc/32?img=12" alt="Profile"
+        class="w-8 h-8 rounded-full border border-gray-300 cursor-pointer" />
+    </a>
+  </div>
+</nav>
+
+
+  
+  <div class="pt-20  max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex gap-6">
+
+    <!-- Filter Sidebar -->
+  <aside class="hidden md:block w-full max-w-xs bg-white rounded-lg shadow p-6 sticky top-20 h-[calc(100vh-5rem)] overflow-y-auto scrollbar-hide">
+
+      <h2 class="text-xl font-semibold mb-4">Filters</h2>
+
+      <!-- Pickup Location -->
+      <div class="mb-5">
+        <label for="pickupLocation" class="block font-semibold mb-1">Pickup Location</label>
+        <input type="text" id="pickupLocation" placeholder="Enter location" class="w-full border border-gray-300 rounded px-3 py-2" />
+      </div>
+
+      <!-- Pickup Date -->
+      <div class="mb-5">
+        <label for="pickupDate" class="block font-semibold mb-1">Pickup Date</label>
+        <input type="date" id="pickupDate" class="w-full border border-gray-300 rounded px-3 py-2" />
+      </div>
+
+      <!-- Price Under -->
+      <div class="mb-5">
+        <label for="priceUnder" class="block font-semibold mb-1">Price Under (₹)</label>
+        <input type="number" id="priceUnder" placeholder="Max Price" min="0" class="w-full border border-gray-300 rounded px-3 py-2" />
+      </div>
+
+      <!-- Brand -->
+      <div class="mb-5">
+        <label for="brandFilter" class="block font-semibold mb-1">Brand</label>
+        <select id="brandFilter" class="w-full border border-gray-300 rounded px-3 py-2">
+          <option value="all">All Brands</option>
+          <option value="honda">Honda</option>
+          <option value="yamaha">Yamaha</option>
+          <option value="suzuki">Suzuki</option>
+          <option value="bajaj">Bajaj</option>
+          <option value="hero">Hero</option>
+        </select>
+      </div>
+
+      <!-- Features -->
+      <div class="mb-5">
+        <span class="block font-semibold mb-2">Features</span>
+        <div class="flex flex-col gap-1">
+          <label><input type="checkbox" class="featureCheckbox" value="helmet" /> Helmet</label>
+          <label><input type="checkbox" class="featureCheckbox" value="gps" /> GPS</label>
+          <label><input type="checkbox" class="featureCheckbox" value="insurance" /> Insurance</label>
+          <label><input type="checkbox" class="featureCheckbox" value="abs" /> ABS</label>
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="flex gap-3">
+        <button id="resetFilters" class="flex-1 bg-gray-200 text-gray-700 py-2 rounded hover:bg-gray-300 transition">Reset</button>
+        <button id="applyFilters" class="flex-1 bg-black text-white py-2 rounded hover:bg-black transition">Apply</button>
+      </div>
+
+    </aside>
+
+  <div class="pt-5 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Cards Container -->
+    <main class="flex-1">
+      <div id="cardsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </main>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAP5iPq_1dvbPQVkvmoVXcps6LhEX5rWQ4",
+      authDomain: "feedback-52db5.firebaseapp.com",
+      databaseURL: "https://feedback-52db5-default-rtdb.firebaseio.com",
+      projectId: "feedback-52db5",
+      storageBucket: "feedback-52db5.appspot.com",
+      messagingSenderId: "871103731307",
+      appId: "1:871103731307:web:866dc43df2e54acb95832e",
+      measurementId: "G-35Y8ZLQXZG"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const cardsContainer = document.getElementById('cardsContainer');
+    let allBikes = [];
+
+    async function loadBikes() {
+      try {
+        const querySnapshot = await getDocs(collection(db, "bikeRentals"));
+        allBikes = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+        if (allBikes.length === 0) {
+          cardsContainer.innerHTML = `<p class="text-center p-6 text-gray-500 col-span-full">No bikes available currently.</p>`;
+          return;
+        }
+
+        renderCards(allBikes);
+
+      } catch (error) {
+        console.error("Error fetching bikes:", error);
+        cardsContainer.innerHTML = `<p class="text-center p-6 text-red-500 col-span-full">Failed to load bikes. Try again later.</p>`;
+      }
+    }
+
+  function renderCards(bikes) {
+  cardsContainer.innerHTML = '';
+  if (bikes.length === 0) {
+    cardsContainer.innerHTML = `<p class="text-center p-6 text-gray-500 col-span-full">No bikes matching filters.</p>`;
+    return;
+  }
+
+  bikes.forEach(bike => {
+    const imageUrl = bike.imageUrl || "https://via.placeholder.com/150x100?text=No+Image";
+    const bikeModel = bike.bikeModel || '-';
+    const rentPerDay = bike.rentPerDay || '-';
+    const bikeId = bike.id || '';
+
+    const card = document.createElement('div');
+    card.className = `
+      w-full bg-white rounded-xl shadow-md p-3 flex flex-col justify-between
+      transition-transform duration-300 hover:shadow-lg hover:scale-105
+    `;
+
+   card.innerHTML = `
+  <img src="${imageUrl}" alt="${bikeModel}" class="w-full h-40 object-cover rounded-lg mb-3" />
+  <div class="flex flex-col flex-grow">
+    <h3 class="text-lg font-semibold text-gray-900 mb-1">${bikeModel}</h3>
+    <div class="flex items-center justify-between">
+    <p class="text-gray-700 font-semibold">₹${rentPerDay} /day</p>
+       <button class="bg-black text-white px-4 py-1 text-sm w-28 h-9 rounded hover:bg-gray-800 transition">
+       Book Now
+       </button>
+
+    </div>
+  </div>
+`;
+
+
+    const button = card.querySelector('button');
+    button.addEventListener('click', (event) => {
+      event.stopPropagation();
+      const params = new URLSearchParams({
+        id: bikeId,
+        model: bikeModel,
+        price: rentPerDay,
+        imageUrl: encodeURIComponent(imageUrl)
+      });
+      window.location.href = `booking.html?${params.toString()}`;
+    });
+
+    cardsContainer.appendChild(card);
+  });
+}
+
+    loadBikes();
+  </script>
+  
+
+</body>
+</html>

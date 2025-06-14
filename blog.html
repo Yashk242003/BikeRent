@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RentBike Blog</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- Navbar -->
+  <nav class="bg-white shadow px-6 py-4">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <h1 class="text-xl font-bold text-blue-600">RentBike Blog</h1>
+      <a href="/" class="text-sm text-gray-600 hover:text-blue-600">← Back to Home</a>
+    </div>
+  </nav>
+
+  <!-- Blog Section -->
+  <section class="max-w-7xl mx-auto py-16 px-4">
+    <h2 class="text-3xl font-bold text-center text-blue-700 mb-12">Latest Blog Posts</h2>
+    
+    <div id="blogContainer" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Blog cards will be injected here -->
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-6 text-center text-sm">
+    &copy; 2025 RentBike. All rights reserved.
+  </footer>
+
+  <!-- Simulated Blog Fetch Script -->
+  <script>
+    const blogData = [
+      {
+        title: "Top 5 Biking Destinations in India",
+        summary: "Explore the best scenic routes for bikers across India – from the Himalayas to the beaches of Goa.",
+        image: "https://cdn.pixabay.com/photo/2016/11/21/17/36/motorcycle-1849726_1280.jpg",
+        date: "June 2, 2025"
+      },
+      {
+        title: "How to Choose the Right Bike for City Travel",
+        summary: "Learn how to pick the perfect bike for your daily city commute based on mileage, comfort, and style.",
+        image: "https://cdn.pixabay.com/photo/2021/01/15/18/49/motorcycle-5918069_1280.jpg",
+        date: "May 28, 2025"
+      },
+      {
+        title: "Safety Tips Every Rider Should Know",
+        summary: "From helmets to road signs, here are key safety tips to ensure a secure riding experience.",
+        image: "https://cdn.pixabay.com/photo/2015/07/10/17/04/motorcycle-839671_1280.jpg",
+        date: "May 20, 2025"
+      }
+    ];
+
+    const blogContainer = document.getElementById("blogContainer");
+
+    blogData.forEach(post => {
+      const card = document.createElement("div");
+      card.className = "bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden";
+
+      card.innerHTML = `
+        <img src="${post.image}" alt="${post.title}" class="w-full h-48 object-cover">
+        <div class="p-4">
+          <h3 class="text-xl font-semibold text-blue-600 mb-2">${post.title}</h3>
+          <p class="text-gray-600 text-sm mb-4">${post.summary}</p>
+          <span class="text-xs text-gray-400">${post.date}</span>
+        </div>
+      `;
+
+      blogContainer.appendChild(card);
+    });
+  </script>
+
+</body>
+</html>
